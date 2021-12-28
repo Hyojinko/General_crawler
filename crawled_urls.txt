@@ -1,5 +1,0 @@
-https://www.ntb.kr/market/selectFullTechList.do
-https://www.ntb.kr/need/needTradeList.do
-https://itec.etri.re.kr/itec/sub02/sub02_01.do
-https://techbiz.etri.re.kr/bhrcTchnlgy/list.do;jsessionid=D6387719165E6614690A74DB0737A0A9
-https://techbiz.etri.re.kr/tchnlgyTransr/detail.do;jsessionid=D6387719165E6614690A74DB0737A0A9
