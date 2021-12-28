@@ -79,6 +79,7 @@ with open('crawled_urls.txt','r') as fd:
 
         #documnet 하나 가져오기
         coll.find_one()
+        #commited
 
     connectDB(df_link)
 
