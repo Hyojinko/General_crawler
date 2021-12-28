@@ -8,6 +8,7 @@ import numpy as np
 import requests
 from urllib.parse import urlparse
 import pandas as pd
+from pymongo import MongoClient
 from requests.models import MissingSchema
 import spacy
 import trafilatura
@@ -51,6 +52,34 @@ with open('crawled_urls.txt','r') as fd:
         domain, links = get_link(u)
         df_link[domain] = links
     print(df_link)
+    df_link.to_csv('Crawled.csv')
 
+    def connectDB(df):
+        # Connect to mongoDB
+        client = MongoClient('localhost', 27017)
+        db = client['info']
+        collection = db['crawled']
+
+        post = {
+            'title': df['title'],
+            'description': df['description'],
+            'view':df['view']
+        }
+        coll = db.collection
+        coll.insert_one(post)
+        #해당 document의 id 받기
+        #post_id = coll.insert(post)
+
+        #dictionary 통째로 넘겨서 insert
+        new_posts = [{},{}]
+        coll.insert(new_posts)
+
+        #collection list 보기
+        coll_list = db.collection_names()
+
+        #documnet 하나 가져오기
+        coll.find_one()
+
+    connectDB(df_link)
 
 #print(get_link(urls))
