@@ -1,3 +1,4 @@
+import w3lib
 from bs4 import BeautifulSoup
 from urllib import request
 from urllib import robotparser
@@ -54,7 +55,7 @@ with open('crawled_urls.txt','r') as fd:
     print(df_link)
     df_link.to_csv('Crawled.csv')
 
-    def connectDB(df):
+    '''def connectDB(df):
         # Connect to mongoDB
         client = MongoClient('localhost', 27017)
         db = client['info']
@@ -82,5 +83,5 @@ with open('crawled_urls.txt','r') as fd:
         #commited
 
     connectDB(df_link)
-
+'''
 #print(get_link(urls))

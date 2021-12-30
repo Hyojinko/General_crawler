@@ -13,7 +13,7 @@ import urllib
 import queue
 from collections import Counter
 import threading
-
+from pymongo import MongoClient
 ################################################################################################
 ########################   Reference   #########################################################
 # https://codereview.stackexchange.com/questions/64757/crawl-multiple-pages-at-once
@@ -105,4 +105,11 @@ with open('crawled_urls.txt','r') as fd:
         result = crawl_web(root, 2)
         word_index = result[2]
         print(result[0])
-        print(search_engine('starting about', word_index))
+        #print(search_engine('starting about', word_index))
+
+
+#if __name__ == '__main__':
+   # crawl('http://localhost',4)
+
+
+
