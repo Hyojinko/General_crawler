@@ -70,6 +70,6 @@ if __name__ == '__main__':
             print('[+] Total Internal links: ', len(internal_urls))
             print('[+] Total External links: ', len(external_urls))
             print('[+] Total URLs: ', len(external_urls) + len(internal_urls))
-        print(link_df)
+        link_df.to_csv('links.csv')
 
 
