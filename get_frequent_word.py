@@ -4,6 +4,8 @@ import bs4
 import json
 import numpy as np
 import requests
+from konlpy.tag import Okt
+import re
 from urllib.parse import urlparse
 import pandas as pd
 from requests.models import MissingSchema
@@ -37,7 +39,7 @@ def start(url):
 	# empty list to store the contents of
 	# the website fetched from our web-crawler
 	wordlist = []
-	source_code = requests.get(url).text
+	source_code = requests.get(url, verify=False).text
 
 	# BeautifulSoup object which will
 	# ping the requested url for data
@@ -48,10 +50,11 @@ def start(url):
 	# print(soup.findAll('a'))
 	for each_text in soup.findAll('a'):
 		content = each_text.text
-
+		# words = content.lower().split()
+		words=Okt().nouns(content)
 		# use split() to break the sentence into
 		# words and convert them into lowercase
-		words = content.lower().split()
+
 
 		for each_word in words:
 			wordlist.append(each_word)
@@ -64,11 +67,17 @@ def start(url):
 def clean_wordlist(wordlist):
 
 	clean_list = []
+
+
 	for word in wordlist:
-		symbols = "!@#$%^&*()_-+={[}]|\;:\"<>?/., "
+		word = re.sub('[a-zA-z]', '', word)
+
+
+		symbols = "은는이가을를이다다의에에서로와과!@#$%^&*()_-+={[}]|\;:\"<>?/., "
 
 		for i in range(len(symbols)):
 			word = word.replace(symbols[i], '')
+
 
 		if len(word) > 0:
 			clean_list.append(word)
@@ -124,4 +133,8 @@ if __name__ == '__main__':
 
 	word_count = {key: value for key, value in word_count.items() if value < 100}
 	print(word_count)
+
+
+
+
 
