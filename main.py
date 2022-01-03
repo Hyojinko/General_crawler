@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 import colorama
 import pandas as pd
 #Init the colorma module
+from pymongo import MongoClient
 
 colorama.init()
 GREEN = colorama.Fore.GREEN
@@ -61,6 +62,7 @@ def crawl(url, max_urls=30):
         crawl(link, max_urls = max_urls)
 
 
+
 if __name__ == '__main__':
     with open('crawled_urls.txt', 'r') as fd:
         urls = fd.read().splitlines()
@@ -71,5 +73,20 @@ if __name__ == '__main__':
             print('[+] Total External links: ', len(external_urls))
             print('[+] Total URLs: ', len(external_urls) + len(internal_urls))
         link_df.to_csv('links.csv')
+        # Upload database to MongoDB
+        # Connect to MongoDB
+        # id: 2rhgywls
+        # pw: ynkie_0110
+        client = MongoClient(
+          "mongodb+srv://2rhgywls:ynkie_0110@cluster1.mpacz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+
+        # database name: target
+        # collection name: collection_link
+        db = client['target']
+        collection = db['collection_link']
+
+        link_df.reset_index(inplace=True)
+        df_dict = link_df.to_dict('records')
+        collection.insert_many(df_dict)
 
 
