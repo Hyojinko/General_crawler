@@ -1,6 +1,6 @@
 from urllib import robotparser
 
-from bs4 import BeautifulSoup
+import bs4
 import json
 import numpy as np
 import requests
@@ -30,6 +30,7 @@ spider, which will fetch information from
 a given website, and push the contents to
 the second function clean_wordlist()'''
 
+word_count = {}
 
 def start(url):
 
@@ -44,7 +45,8 @@ def start(url):
 
 	# Text in given web-page is stored under
 	# the <div> tags with class <entry-content>
-	for each_text in soup.findAll('div', {'class': 'entry-content'}):
+	# print(soup.findAll('a'))
+	for each_text in soup.findAll('a'):
 		content = each_text.text
 
 		# use split() to break the sentence into
@@ -54,6 +56,7 @@ def start(url):
 		for each_word in words:
 			wordlist.append(each_word)
 		clean_wordlist(wordlist)
+	#print(wordlist)
 
 # Function removes any unwanted symbols
 
@@ -70,6 +73,7 @@ def clean_wordlist(wordlist):
 		if len(word) > 0:
 			clean_list.append(word)
 	create_dictionary(clean_list)
+	#print(clean_list)
 
 
 # Creates a dictionary containing each word's
@@ -77,7 +81,6 @@ def clean_wordlist(wordlist):
 
 
 def create_dictionary(clean_list):
-	word_count = {}
 
 	for word in clean_list:
 		if word in word_count:
@@ -98,11 +101,15 @@ def create_dictionary(clean_list):
 
 	<-- '''
 
-	c = Counter(word_count)
+	# c = Counter(word_count)
 
 	# returns the most occurring elements
-	top = c.most_common(10)
-	print(top)
+	# top = c.most_common(1)
+# 	handling_frequenat_tokens(word_count)
+#
+# def handling_frequenat_tokens(word_count):
+# 	x = {key : value for key, value in word_count.items() if value<100}
+# 	print(x)
 
 
 # Driver code
@@ -110,12 +117,11 @@ if __name__ == '__main__':
 
 	df = pd.read_csv('links.csv')
 	df.drop(df.columns[0],axis=1, inplace=True)
-	print(df)
+	#print(df)
 	for domain, links in df.iteritems():
 		for u in links:
 			start(u)
 
-
-
-
+	word_count = {key: value for key, value in word_count.items() if value < 100}
+	print(word_count)
 
