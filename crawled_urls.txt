@@ -1,2 +1,5 @@
 https://itec.etri.re.kr/itec/sub02/sub02_01.do
 https://www.ipmarket.or.kr/usr/iu01/iu0101_l0.ipm
+https://yesme.kiom.re.kr/Transfer_tech1
+https://rnd.compa.re.kr/total/saleTechResult.do
+https://www.smtech.go.kr/front/ifg/pa/partinfo01_list.do
