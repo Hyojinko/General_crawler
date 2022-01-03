@@ -23,7 +23,7 @@ def is_valid(url):
 def get_all_website_links(url):
     urls = set()
     domain_name = urlparse(url).netloc
-    soup = BeautifulSoup(requests.get(url).content, 'html.parser')
+    soup = BeautifulSoup(requests.get(url, verify=False).content, 'html.parser')
 
     for a_tag in soup.findAll('a'):
         href = a_tag.attrs.get('href')
