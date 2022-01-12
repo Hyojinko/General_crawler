@@ -3,6 +3,7 @@ from urllib.parse import urlparse, urljoin
 from bs4 import BeautifulSoup
 import colorama
 import pandas as pd
+import time
 #Init the colorma module
 from pymongo import MongoClient
 
@@ -23,7 +24,12 @@ def is_valid(url):
 def get_all_website_links(url):
     urls = set()
     domain_name = urlparse(url).netloc
-    soup = BeautifulSoup(requests.get(url, verify=False).content, 'html.parser')
+    try:
+        soup = BeautifulSoup(requests.get(url, verify=False).content, 'html.parser')
+    except:
+        time.sleep(2)
+        soup = BeautifulSoup(requests.get(url, verify=False).content, 'html.parser')
+
 
     for a_tag in soup.findAll('a'):
         href = a_tag.attrs.get('href')
@@ -77,7 +83,7 @@ if __name__ == '__main__':
         # Connect to MongoDB
         # id: 2rhgywls
         # pw: ynkie_0110
-        client = MongoClient(
+        '''client = MongoClient(
           "mongodb+srv://2rhgywls:ynkie_0110@cluster1.mpacz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 
         # database name: target
@@ -87,6 +93,6 @@ if __name__ == '__main__':
 
         link_df.reset_index(inplace=True)
         df_dict = link_df.to_dict('records')
-        collection.insert_many(df_dict)
+        collection.insert_many(df_dict)'''
 
 
