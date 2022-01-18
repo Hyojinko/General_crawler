@@ -73,7 +73,7 @@ def clean_wordlist(wordlist):
 		word = re.sub('[a-zA-z]', '', word)
 
 
-		symbols = "은는이가을를이다다의에에서로와과!@#$%^&*()_-+={[}]|\;:\"<>?/., "
+		symbols = "!@#$%^&*()_-+={[}]|\;:\"<>?/., "
 
 		for i in range(len(symbols)):
 			word = word.replace(symbols[i], '')
@@ -131,11 +131,8 @@ if __name__ == '__main__':
 		for u in links:
 			start(u)
 
-	word_count = {key: value for key, value in word_count.items() if value < 100}
+	many_word_count = {key: value for key, value in word_count.items() if value > 10000}
 	word_count= sorted(word_count.items(), key=operator.itemgetter(1), reverse=True)
 	print(word_count)
-
-
-
 
 
